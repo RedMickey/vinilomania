@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="open-iconic-master/font/css/open-iconic-bootstrap.css">
+
+    <title>TestSite</title>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="header-container">
+        <nav class="navbar navbar-dark" style="background-color: #4169E1">
+          <div class="container">
+            <p class="h5 text-white">Интернет-магизин виниловых и компакт-дисков</p>
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" id="dropdownAcc">
+                Аккаунт
+              </button>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownAcc">
+                <a class="dropdown-item" href="#">Вход</a>
+                <a class="dropdown-item" href="#">Регистрация</a>
+                <a class="dropdown-item" href="#">Корзина<div class="round-basket total-cart-count"></div></a>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div class="header-content navbar-dark bg-primary pb-2">
+          <div class="container-fluid">
+            <div class="row d-flex align-items-center">
+              <div class="col-md-6 col-sm-12 col-xl-4 col-12 d-md-block ">
+                <a class="navbar-brand" href="#">
+                  <img class="logo-img" src="images/vdisk.png">
+                Виниломания
+                </a>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xl-5 col-12">
+                <form class=" mt-3 mt-md-0 mt-lg-0 mt-xl-0 ml-lg-5" action="">
+                  <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search...">                    
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline btn-dark" >Поиск</button>
+                    </div> 
+                  </div>
+                </form>
+                <div class="description text-center mt-2">
+                  <a href="#">Все артисты по алфавиту</a>
+                </div>
+              </div>
+  
+              <div class="col-md-0 col-sm-0 col-xl-3 col-12 d-none d-xl-block">
+                <div class="float-right mr-3 navbar-collapse">       
+                  <a href="#" class="basket">
+                    <span class="oi oi-basket"></span>
+                  </a>
+                  <div class="d-inline float-right block-basket">
+                    <div class="text-basket">вы выбрали</div>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td class="text-basket ">альбомы:</td>
+                            <td class="text-basket-val pl-2 total-cart-count"></td>
+                          </tr>
+                          <tr>
+                            <td class="text-basket mr-2">НА СУММУ:</td>
+                            <td class="text-basket-val pl-2" id="total-cart-summa"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary block-padtb0">
+          <div class="dropdown">
+              <a class="dropdown-toggle btn btn-lg btn-dark mr-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true">
+                <span class="navbar-toggler-icon"></span>
+                Категории
+              </a>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Джаз/Блюз/Свинг 
+                    <span class="badge badge-primary badge-pill ml-2">14</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Классическая музыка
+                    <span class="badge badge-primary badge-pill ml-2">10</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Поп/Рок
+                    <span class="badge badge-primary badge-pill ml-2">8</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Русская музыка
+                    <span class="badge badge-primary badge-pill ml-2">25</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Танцевальная/Электронная
+                    <span class="badge badge-primary badge-pill ml-2">3</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Hard&Heavy/Альтернатива
+                    <span class="badge badge-primary badge-pill ml-2">17</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Хип-Хоп/Рэп
+                    <span class="badge badge-primary badge-pill ml-2">21</span>
+                  </a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" href="#">Бестселлеры</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Новинки</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Подарочные издания</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Предзаказ</a>
+                </li>
+              </ul>
+            </div>
+
+          <button class="navbar-toggler justify-content-end " type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarToggler1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarToggler1">
+            <ul class="nav navbar-nav mt-2 mt-lg-0 nav-fill">
+              <li class="nav-item active nav-item-block">
+                <a class="nav-link " href="#">Главная<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">Заказ</a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">Достака</a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">Оплата</a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">О магазине</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <div id="middle">
+        <div class="container-fluid">
+          <div class="block-content-header d-flex">
+            <div class="b-tittle align-self-center">
+              новинки
+            </div>
+            <div class="count align-self-center">
+              23
+            </div>
+            <div class="ml-auto align-self-center">
+              <a class="round-link" href="#"><span class="oi oi-arrow-thick-right"></span></a>
+            </div>
+          </div>
+          <div id="new-albums" class="scrollbar scrollbar-warning">
+            
+            <div class="block-content-alb ">
+              <a href="#">
+                <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              </a>
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000001">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab tab-active" id="tab_000001_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000001_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices" >
+                      <div class="views-field-albom-price tab_000001_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000001_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links">
+                      <a class="btn btn-sm btn-warning tab_000001_0 add-to-cart" data-id="1_1" data-name="Seventeen" data-price=1123 href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000001_1 add-to-cart" href="#" data-id="1_2" data-name="Seventeen" data-price=8565 style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000002">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab" id="tab_000002_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000002_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices">
+                      <div class="views-field-albom-price tab_000002_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000002_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links" >
+                      <a class="btn btn-sm btn-warning tab_000002_0 add-to-cart" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000002_1 add-to-cart" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000003">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab" id="tab_000003_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000003_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices">
+                      <div class="views-field-albom-price tab_000003_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000003_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links" >
+                      <a class="btn btn-sm btn-warning tab_000003_0 add-to-cart" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000003_1 add-to-cart" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--бестселлеры*************************************************************************-->
+        <div class="container-fluid">
+          <div class="block-content-header d-flex">
+            <div class="b-tittle align-self-center">
+              бестселлеры
+            </div>
+            <div class="count align-self-center">
+              20
+            </div>
+            <div class="ml-auto align-self-center">
+              <a class="round-link" href="#"><span class="oi oi-arrow-thick-right"></span></a>
+            </div>
+          </div>
+          <div id="new-albums" class="scrollbar scrollbar-warning">
+            
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000004">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab tab-active" id="tab_000004_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000004_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices" >
+                      <div class="views-field-albom-price tab_000004_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000004_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links">
+                      <a class="btn btn-sm btn-warning tab_000004_0 add-to-cart" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000004_1 add-to-cart" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000005">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab" id="tab_000005_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000005_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices">
+                      <div class="views-field-albom-price tab_000005_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000005_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links" >
+                      <a class="btn btn-sm btn-warning tab_000005_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000005_1" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000006">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab" id="tab_000006_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000006_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices">
+                      <div class="views-field-albom-price tab_000006_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000006_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links" >
+                      <a class="btn btn-sm btn-warning tab_000006_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000006_1" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--slideshow********************************************************************-->
+        <div class="container-fluid container-slideshow">
+          <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="images/slideshow/vinil_img1.jpg" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="images/slideshow/1600x550_pinkfloyd.jpg" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="images/slideshow/kraftwerk1.png" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <!--Предзаказы*****************************************************************************-->
+        <div class="container-fluid">
+          <div class="block-content-header d-flex">
+            <div class="b-tittle align-self-center">
+              предзаказы
+            </div>
+            <div class="count align-self-center">
+              16
+            </div>
+            <div class="ml-auto align-self-center">
+              <a class="round-link" href="#"><span class="oi oi-arrow-thick-right"></span></a>
+            </div>
+          </div>
+          <div id="new-albums" class="scrollbar scrollbar-warning">
+            
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000007">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab tab-active" id="tab_000007_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000007_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices" >
+                      <div class="views-field-albom-price tab_000007_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000007_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links">
+                      <a class="btn btn-sm btn-warning tab_000007_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000007_1" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000008">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab" id="tab_000008_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000008_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices">
+                      <div class="views-field-albom-price tab_000008_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000008_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links" >
+                      <a class="btn btn-sm btn-warning tab_000008_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000008_1" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="block-content-alb ">
+              <img class="alb-cover" src="albums-img/0190758020228.jpg">
+              <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="#">Seventeen</a>
+                </div>
+                <div class="author-name">
+                  <a href="#">Kayak</a>
+                </div>
+                <div class=".albom_views_tabs .albom_views_tabs_000009">
+                    <ul class="views-field-albom-format-media" >
+                      <li class="tab" id="tab_000009_0">
+                        <a href="#">CD</a>
+                      </li>
+                      <li class="tab" id="tab_000009_1">
+                        <a href="#">Винил</a>
+                      </li>
+                    </ul>
+                    <div class="views-fields-prices">
+                      <div class="views-field-albom-price tab_000009_0" style="display: block;">
+                        цена 1123    
+                      </div>
+                      <div class="views-field-albom-price tab_000009_1" style="display: none;">
+                        цена 8565
+                      </div>
+                    </div>
+                    <div class="views-fields-links" >
+                      <a class="btn btn-sm btn-warning tab_000009_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+                      <a class="btn btn-sm btn-warning tab_000009_1" href="#" style="display: none;" >В корзину</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="container-fluid">
+          <div class="row ">
+              <dir class="col-12 col-lg-3 pr-0">
+                <div class="logo-link d-flex align-items-center">
+                  <a href="#">
+                    <img class="logo-img2" src="images/vdisk.png">
+                  Виниломания
+                  </a>
+                </div>
+                <div class="description">
+                  Интернет-магизин виниловых и компакт-дисков
+                  <br><br>
+                  <h4>Наш телефон:</h4>
+                  123 456 1234
+                  <h4>Email:</h4>
+                  email@email.ru
+                </div>
+              </dir>
+               <dir class="col-7  col-lg-6 pl-lg-4 pr-lg-4">
+                <div class="description text-center mb-3">
+                  ВОПРОСЫ, ПОЖЕЛАНИЯ И ПРЕДЛОЖЕНИЯ
+                </div>
+                <form action="" method="post" id="contact-form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="InputCustomerName" placeholder="Ваше имя">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="sujInputEmail1" aria-describedby="emailHelp" placeholder="Ваш email">
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" id="TextareaMessage" rows="5" placeholder="Ваше сообщение"></textarea>
+                  </div>
+                  <div class="d-flex justify-content-center mb-3">
+                    <div class="g-recaptcha " data-sitekey="#"></div>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                  <input type="submit" class="btn btn-success btn-send" value="Отправить отзыв">
+                  </div>
+                </form>
+              </dir>
+               <dir class="col-5 col-lg-3">
+                <div class="description mb-3">
+                    ПОМОЩЬ:
+                </div>
+                <div class="description d-flex flex-column">
+                  <a href="#">Как сделать заказ</a>
+                  <a href="#">Способы и сроки доставки</a>
+                  <a href="#">Способы оплаты</a>
+                  <a href="#">Что такое предзаказ</a>
+                  <a href="#">Скидки</a>
+                  <a href="#">Статьи</a>
+                </div>
+              </dir>
+          </div>
+        </div>
+      </footer>      
+    </div>
+
+       
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/card.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".views-field-albom-format-media").each(function(index, elem){
+          $(elem).children('')[0].classList.add("tab-active");
+          //elem.addClass("tab-active");
+          //console.log($(elem).children('')[0]);
+        });
+      });
+
+      $(function(){
+        $('.tab').bind('mouseover', function(e){
+          $(this).addClass("tab-active");
+
+          var alb_id= $(this).attr('id').slice(0,-1);
+          //console.log(alb_id);
+
+          $("."+$(this).attr('id')).each(function(index, elem){
+            switch(elem.tagName)
+            {
+              case "DIV":
+                elem.style.display="block";
+                break;
+              case "A":
+                elem.style.display="inline-block";
+                break;
+            }
+          });
+
+          var a=$(this).siblings('li');
+          for(var i=0;i<a.length;i++)
+          {
+            if($(a[i]).hasClass('tab-active'))
+            {
+              $(a[i]).removeClass("tab-active");
+              //console.log(a[i]);
+            }
+          }
+
+          for (var i=0;i<a.length+1;i++)
+          {
+            if((alb_id+i)!=$(this).attr('id'))
+              {
+                $("."+(alb_id+i)).each(function(index, elem){
+                elem.style.display="none";
+              });
+              }
+          }
+        });
+      });
+    </script>
+    
+    <script  type="text/javascript">
+      
+    </script>
+    <!--<script type="text/javascript">
+      //function handleMouseoverPrice(e){
+        $('#b2').text($('#b1').css('display'));
+
+    </script>-->
+
+
+  </body>
+</html>

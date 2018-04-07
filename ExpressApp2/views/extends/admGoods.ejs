@@ -1,0 +1,75 @@
+﻿<%# views/extends/admGoods.ejs %>
+ 
+<% extend('../admLayout') %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Товары</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+		  <div class="mb-3">
+		  	<a href="panel/add" role="button" class="btn btn-success mr-2">Добавить</a>
+			<a href="#" id="update" role="button" class="btn btn-warning mr-2">Редактировать</a>
+			<button id="del" type="button" class="btn btn-danger">Удалить</button>
+		  </div>
+
+		  <div>
+		  	<table class="table">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Id</th>
+			      <th scope="col">Название альбома</th>
+			      <th scope="col">Автор</th>
+			      <th scope="col">Жанр</th>
+				  <th scope="col">Стиль</th>
+				  <th scope="col">Тип товара</th>
+				  <th scope="col">Количество CD</th>
+				  <th scope="col">Количество Винил</th>
+				  <th scope="col">Цена CD руб.</th>
+				  <th scope="col">Цена Винил руб.</th>
+			    </tr>
+			  </thead>
+
+			  <tbody>
+				<%for(var i=0; i<content.length;i++){%>
+				<tr>
+			      <th scope="row"><%=content[i].ID_album%></th>
+			      <td><%=content[i].alb_name %></td>
+			      <td><%=content[i].author_name %></td>
+				  <td><%=content[i].genre_name %></td>
+				  <td><%=content[i].style_name %></td>
+				  <td><%=content[i].prodtype_name %></td>
+				  <td><%=content[i].count1 %></td>
+				  <td><%=content[i].count2 %></td>
+				  <td><%=content[i].alb_price1 %></td>
+				  <td><%=content[i].alb_price2 %></td>
+			    </tr>
+				<%}%>
+			  </tbody>
+			</table>
+		  </div>
+          
+        </main>
+
+		<script type="text/javascript">
+		$(function(){
+			$("#del").click(function(e) {
+			alert('Удаление');
+			//alert($("tr[class=table-primary]>th").text());
+			 $.post('panel/delete', {'deletedID':$("tr[class=table-primary]>th").text()},
+            function() {
+				   $("tr[class=table-primary]").remove();
+                   alert('Запрос выполнен');
+				});
+			});
+		});
+		</script>

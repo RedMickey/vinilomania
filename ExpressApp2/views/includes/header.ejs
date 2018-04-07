@@ -1,0 +1,164 @@
+    <header class="header-container">
+        <nav class="navbar navbar-dark" style="background-color: #4169E1">
+          <div class="container">
+            <p class="h5 text-white">Интернет-магизин виниловых и компакт-дисков</p>
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" id="dropdownAcc">
+                Аккаунт
+              </button>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownAcc">
+                <a class="dropdown-item" href="/login">Вход</a>
+                <a class="dropdown-item" href="/registration">Регистрация</a>
+                <a class="dropdown-item" href="#">Корзина<div class="round-basket">1</div></a>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div class="header-content navbar-dark bg-primary pb-2">
+          <div class="container-fluid">
+            <div class="row d-flex align-items-center">
+              <div class="col-md-6 col-sm-12 col-xl-4 col-12 d-md-block">
+                <a class="navbar-brand" href="/">
+                  <img class="logo-img" src="/images/vdisk.png">
+                Виниломания
+                </a>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xl-5 col-12">
+                <form class=" mt-3 mt-md-0 mt-lg-0 mt-xl-0 ml-lg-5" action="">
+                  <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search...">                    
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline btn-dark" >Поиск</button>
+                    </div> 
+                  </div>
+                </form>
+                <div class="description text-center mt-2">
+                  <a href="#">Все артисты по алфавиту</a>
+                </div>
+              </div>
+  
+              <div class="col-md-0 col-sm-0 col-xl-3 col-12 d-none d-xl-block">
+                <div class="float-right mr-3 navbar-collapse">       
+                  <a href="#" class="basket">
+                    <span class="oi oi-basket"></span>
+                  </a>
+                  <div class="d-inline float-right block-basket">
+                    <div class="text-basket">вы выбрали</div>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td class="text-basket ">альбомы:</td>
+                            <td class="text-basket-val pl-2">0</td>
+                          </tr>
+                          <tr>
+                            <td class="text-basket mr-2">НА СУММУ:</td>
+                            <td class="text-basket-val pl-2"">0 руб</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary block-padtb0">
+          <div class="dropdown">
+              <a class="dropdown-toggle btn btn-lg btn-dark mr-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true">
+                <span class="navbar-toggler-icon"></span>
+                Категории
+              </a>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Джаз/Блюз/Свинг 
+                    <span class="badge badge-primary badge-pill ml-2">14</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Классическая музыка
+                    <span class="badge badge-primary badge-pill ml-2">10</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Поп/Рок
+                    <span class="badge badge-primary badge-pill ml-2">8</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Русская музыка
+                    <span class="badge badge-primary badge-pill ml-2">25</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Танцевальная/Электронная
+                    <span class="badge badge-primary badge-pill ml-2">3</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Hard&Heavy/Альтернатива
+                    <span class="badge badge-primary badge-pill ml-2">17</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Хип-Хоп/Рэп
+                    <span class="badge badge-primary badge-pill ml-2">21</span>
+                  </a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" href="#">Бестселлеры</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Новинки</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Подарочные издания</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Предзаказ</a>
+                </li>
+              </ul>
+            </div>
+
+          <button class="navbar-toggler justify-content-end " type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarToggler1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarToggler1">
+            <ul class="nav navbar-nav mt-2 mt-lg-0 nav-fill">
+              <li class="nav-item active nav-item-block">
+                <a class="nav-link " href="#">Главная<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">Заказ</a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">Достака</a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">Оплата</a>
+              </li>
+              <li class="nav-item align-self-center d-none d-md-block">
+                <div class="nav-vert-line"></div>
+              </li>
+              <li class="nav-item nav-item-block">
+                <a class="nav-link" href="#">О магазине</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>

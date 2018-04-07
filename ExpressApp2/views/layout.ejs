@@ -1,0 +1,22 @@
+﻿<%# views/layout.ejs %>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <% include includes/links.ejs %>
+    <title>TestSite</title>
+  </head>
+   <body>
+    <div class="page-wrapper">
+     <% include includes/header.ejs %>
+	 <div id="middle">
+     <%- content %>
+	 </div>
+     <% include includes/footer.ejs %>
+    </div>
+    <% include includes/scripts.ejs %>
+   </body>
+</html>

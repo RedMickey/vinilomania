@@ -1,0 +1,131 @@
+﻿<%# views/extends/addGood.ejs %>
+ 
+<% extend('../admLayout') %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Добавление товара</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+		  <div class="mb-3">
+		  	<button id="submit" type="button" class="btn btn-success mr-2">Добавить товар</button>
+		  </div>
+
+		  <div>
+		  	<form action="insert" id="insertForm">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="alb_name">Название альбома</label>
+              <input type="text" class="form-control" id="alb_name" name="alb_name">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputAuthor">Автор</label>
+              <select id="inputAuthor" class="form-control" name="author">
+				<%for (var i=0;i<authors.length;i++){%>
+				<option value="<%=authors[i].ID_author%>"><%=authors[i].author_name%></option>
+				<%}%>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="inputGenre">Жанр</label>
+              <select id="inputGenre" class="form-control" name="genre">
+                <%for (var i=0;i<genres.length;i++){%>
+				<option value="<%=genres[i].ID_genre%>"><%=genres[i].genre_name%></option>
+				<%}%>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="inputStyle">Стиль</label>
+              <select id="inputStyle" class="form-control" name="style">
+                <%for (var i=0;i<styles.length;i++){%>
+				<option value="<%=styles[i].ID_style%>"><%=styles[i].style_name%></option>
+				<%}%>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="inputLabel">Лейбл</label>
+              <select id="inputLabel" class="form-control" name="label">
+                <%for (var i=0;i<labels.length;i++){%>
+				<option value="<%=labels[i].ID_label%>"><%=labels[i].label_name%></option>
+				<%}%>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="inputOrigin">Происхождение</label>
+              <select id="inputOrigin" class="form-control" name="origin">
+                <%for (var i=0;i<origins.length;i++){%>
+				<option value="<%=origins[i].ID_origin%>"><%=origins[i].origin_name%></option>
+				<%}%>
+              </select>
+            </div>
+          </div>
+
+          <h4>Типы и количество дисков</h4>
+          <div class="form-row">
+            <div class="form-group col-md-4"> 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="disktype1" name="disktype1">
+                  <label class="form-check-label" for="disktype1">
+                    CD
+                  </label>
+                </div>
+                  <label for="inputCountdisk1">Дисков в альбоме</label>
+                  <input type="text" class="form-control" id="inputCountdisk1" name="countdisk1">
+                  <label for="inputCount1">Дисков на складе</label>
+                  <input type="text" class="form-control" id="inputCount1" name="count1">
+                  <label for="inputAlb_price1">Цена</label>
+                  <input type="text" class="form-control" id="inputAlb_price1" name="alb_price1">
+              </div>
+
+            <div class="form-group col-md-4"> 
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="disktype2" name="disktype2">
+                  <label class="form-check-label" for="disktype2">
+                    Винил
+                  </label>
+                </div>
+                  <label for="inputCountdisk2">Дисков в альбоме</label>
+                  <input type="text" class="form-control" id="inputCountdisk2" name="countdisk2">
+                  <label for="inputCount2">Дисков на складе</label>
+                  <input type="text" class="form-control" id="inputCount2" name="count2">
+                  <label for="inputAlb_price2">Цена</label>
+                  <input type="text" class="form-control" id="inputAlb_price2" name="alb_price2">
+              </div>
+              <div class="form-group col-md-3 mt-md-4">
+                <label for="inputProdtype">Тип товара</label>
+                <select id="inputProdtype" class="form-control" name="prodtype">
+                <%for (var i=0;i<prodtypes.length;i++){%>
+				<option value="<%=prodtypes[i].ID_prodtype%>"><%=prodtypes[i].prodtype_name%></option>
+				<%}%>
+              </select>
+              </div>
+          </div>
+
+        </form>
+		  </div>
+          
+        </main>
+
+		<script type="text/javascript">
+		$(function(){
+			$("#submit").click(function(e) {
+			alert('Запрос');
+			 $.post('insert', $("#insertForm").serialize(),
+            function() {
+                   alert('Запрос выполнен');
+				});
+			});
+		});
+		</script>

@@ -1,0 +1,83 @@
+	  <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".views-field-albom-format-media").each(function(index, elem){
+          $(elem).children('')[0].classList.add("tab-active");
+          //elem.addClass("tab-active");
+          //console.log($(elem).children('')[0]);
+        });
+      });
+
+      $(function(){
+        $('.tab').bind('mouseover', function(e){
+          $(this).addClass("tab-active");
+
+          var alb_id= $(this).attr('id').slice(0,-1);
+          //console.log(alb_id);
+
+          $("."+$(this).attr('id')).each(function(index, elem){
+            switch(elem.tagName)
+            {
+              case "DIV":
+                elem.style.display="block";
+                break;
+              case "A":
+                elem.style.display="inline-block";
+                break;
+            }
+          });
+
+          var a=$(this).siblings('li');
+          for(var i=0;i<a.length;i++)
+          {
+            if($(a[i]).hasClass('tab-active'))
+            {
+              $(a[i]).removeClass("tab-active");
+              //console.log(a[i]);
+            }
+          }
+
+          for (var i=0;i<a.length+1;i++)
+          {
+            if((alb_id+i)!=$(this).attr('id'))
+              {
+                $("."+(alb_id+i)).each(function(index, elem){
+                elem.style.display="none";
+              });
+              }
+          }
+        });
+      });
+    </script>
+    
+    <script  type="text/javascript">
+      $(function(){
+      $('.in_radio').bind('click', function(){
+      $('.alb-price2').text($(this).children().val());
+      if($(this).children().attr('name')=='CD_price')
+      {$('#disk_format').text('CD');
+       $('#disk_count').children()[1].style.display="inline";
+       $('#disk_count').children()[2].style.display="none";
+      }
+      else
+      {$('#disk_format').text('Винил');
+       $('#disk_count').children()[1].style.display="none";
+       $('#disk_count').children()[2].style.display="inline";
+      }
+      });
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(function(){
+        $(".good-small-image>a").bind('click', function(e){
+          e.preventDefault();
+          $('.alb-cover-big').attr('src',$(this).attr('href'));
+          //alert('dfdsf');
+        });
+      });
+    </script>

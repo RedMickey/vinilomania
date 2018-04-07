@@ -1,0 +1,16 @@
+﻿module.exports = {
+    name: "base",
+    extend: function (properties) {
+        var Child = module.exports;
+        Child.prototype = module.exports.prototype;
+        for (var key in properties) {
+            Child.prototype[key] = properties[key];
+        }
+        return Child;
+    },
+    run: function (req, res, next) {
+
+    }
+
+
+}

@@ -1,0 +1,196 @@
+﻿<%# views/extends/curalb.ejs %>
+ 
+<% extend('../layout') %>
+
+
+
+	<div id="middle">
+        <div class="path">
+          <%=alb_c.author_name%>/<%=alb_c.alb_name%>
+        </div>
+        <div class="container-fluid d-flex"> 
+          <div class="block-content-header d-flex">
+            <div class="b-tittle2 align-self-center">
+              <a href="#"><%=alb_c.author_name%></a>
+            </div>
+            <div class="tittle_alb align-self-center">
+              /<%=alb_c.alb_name%>
+            </div>
+            <div class="ml-auto align-self-center">
+              <div class="round-link" style="line-height: 40px; font-weight: bold;">T</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row mb-4">
+            <div class="col-12 col-lg-6">
+              <div class="block-goods-images">
+                <div class="goods-big-image">
+                    <img class="alb-cover-big" src="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.album_cover%>" alt="">
+                </div>
+                <div class="goods-small-images mt-4 mb-lg-0 mb-4 d-flex flex-row justify-content-center">
+                  <div class="good-small-image">
+                    <a href="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.album_cover%>">
+                      <img src="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.album_cover%>" alt="">
+                    </a>
+                  </div>
+				  <%for(var i=0; i<alb_c.addition_pics.length;i++){%>
+					  <div class="good-small-image">
+						<a href="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.addition_pics[i]%>">
+						  <img src="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.addition_pics[i].split('.').join('_s.')%>" alt="">
+						</a>
+					  </div>
+				  <%}%>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div>
+                <div class="field-label">Жанр:</div>
+                <div class="field-item"><%=alb_c.genre_name%></div>
+              </div>
+              <div>
+                <div class="field-label">Стиль:</div>
+                <div class="field-item"><%=alb_c.style_name%></div>
+              </div>
+              <div>
+                <div class="field-label">Формат:</div>
+                <div class="field-item" id="disk_format">CD</div>
+              </div>
+              <div id="disk_count">
+                <div class="field-label">Носителей:</div>
+                <div class="field-item" style="display: inline;"><%=alb_c.countdisk1%></div>
+				<div class="field-item" style="display: none;"><%=alb_c.countdisk2%></div>
+              </div>
+              <div>
+                <div class="field-label">Происхождение:</div>
+                <div class="field-item"><%=alb_c.origin_name%></div>
+              </div>
+              <div>
+                <div class="field-label">Лейбл:</div>
+                <div class="field-item"><%=alb_c.label_name%></div>
+              </div>
+              <div class="field-availability">Товар в наличии на складе</div>
+              <div id="alb-prices" class="mb-3">
+                <div class="field-label">Цена:</div>
+                <div class="alb-price2" style="display: inline;">
+                  <%=alb_c.alb_price1%>руб
+                </div>
+              </div>
+              <button type="button" class="btn btn-warning btn-lg">Купить <span class="oi oi-basket"></span></button>
+            </div>
+            <div class="col-6 col-lg-3">
+              <h5 class="h5-inf">Купить "<%=alb_c.author_name%> - <%=alb_c.alb_name%>" можно в следующих форматах:</h5>
+              <div class="btn-group-toggle mt-4 mb-4" data-toggle="buttons" id="d_type_select">
+                <label class="btn btn-outline-warning btn-block active in_radio">
+                  <input type="radio" name="CD_price" value="<%=alb_c.alb_price1%>" autocomplete="off" checked>CD, Импорт (<%=alb_c.alb_price1%> руб)
+                </label>
+                <label class="btn btn-outline-warning btn-block in_radio">
+                  <input type="radio" name="Vinyl_price" value="<%=alb_c.alb_price2%>" autocomplete="off">Винил, Импорт (<%=alb_c.alb_price2%> руб)
+                </label>
+              </div>
+              <div class="alboms_art_link">
+                <a href="#">
+                  Все альбомы <span class="link_name">Stacey Kent</span> доступные в нашем магазине <span class="oi oi-arrow-right">
+                </a>
+              </div>
+            </div>
+          </div>
+
+		  <div class="row mb-3">
+            <div class="col-12 col-sm-8 col-md-6">
+              <h3>Трек-лист</h3>
+
+			  <%for(var i=0;i<songs.length;i++){%>
+			   <div class="row tracklist-item">
+                <div class="col-1">
+                  <%=i+1%>
+                </div>
+                <div class="col-9">
+                  <%=songs[i].song_name%>
+                </div>
+                <div class="col-2">
+                  <%=songs[i].song_duration.substr(3)%>
+                </div>
+              </div>
+			  <%}%>
+
+            </div>
+          </div>
+        </div>
+
+		<div class="container-fluid">
+          <div class="block-content-header d-flex">
+            <div class="b-tittle align-self-center" style="font-size: 36px;">
+			  вам могут также понравиться
+            </div>
+            <div class="count align-self-center">
+              <%=identicals_c.length%>
+            </div>
+            <div class="ml-auto align-self-center">
+              <a class="round-link" href="#"><span class="oi oi-arrow-thick-right"></span></a>
+            </div>
+          </div>
+          <div id="new-albums" class="scrollbar scrollbar-warning">
+            
+			<% for(var i=0; i<identicals_c.length; i++) {%>
+			<div class="block-content-alb ">
+				<a href="/<%=identicals_c[i].author_name%>/<%=identicals_c[i].alb_name%>">
+                <img class="alb-cover" src="/albums-img/<%=identicals_c[i].ID_author%>/<%=identicals_c[i].ID_album%>/<%=identicals_c[i].album_cover%>">
+              </a>     
+			  <div class="block-content-alb-body">
+                <div class="alb-name">
+                  <a href="/<%=identicals_c[i].author_name%>/<%=identicals_c[i].alb_name%>"><%=identicals_c[i].alb_name%></a>
+                </div>
+                <div class="author-name">
+                  <a href="#"><%=identicals_c[i].author_name%></a>
+                </div>
+				<div class=".albom_views_tabs .albom_views_tabs_<%=identicals_c[i].ID_album%>">
+					<ul class="views-field-albom-format-media" >
+						<%if(identicals_c[i].ID_disktype1==1||identicals_c[i].ID_disktype2==1){%>
+							<li class="tab tab-active" id="tab_<%=identicals_c[i].ID_album%>_0">
+								<a href="/<%=identicals_c[i].author_name%>/<%=identicals_c[i].alb_name%>">CD</a>
+							</li>
+						<%}%>
+						<%if(identicals_c[i].ID_disktype1==2||identicals_c[i].ID_disktype2==2){%>
+							<li class="tab" id="tab_<%=identicals_c[i].ID_album%>_1">
+								<a href="/<%=identicals_c[i].author_name%>/<%=identicals_c[i].alb_name%>">Винил</a>
+							</li>
+						<%}%>
+					</ul>
+					<div class="views-fields-prices" >
+						<%if(identicals_c[i].ID_disktype1==1){%>
+							<div class="views-field-albom-price tab_<%=identicals_c[i].ID_album%>_0" style="display: block;">
+								цена <%=identicals_c[i].alb_price1%>    
+							</div>
+						<%}%>
+						<%if(identicals_c[i].ID_disktype2==1){%>
+							<div class="views-field-albom-price tab_<%=identicals_c[i].ID_album%>_0" style="display: block;">
+								цена <%=identicals_c[i].alb_price2%>    
+							</div>
+						<%}%>
+						<%if(identicals_c[i].ID_disktype1==2){%>
+							<div class="views-field-albom-price tab_<%=identicals_c[i].ID_album%>_1" style="display: none;">
+								цена <%=identicals_c[i].alb_price1%>    
+							</div>
+						<%}%>
+						<%if(identicals_c[i].ID_disktype2==2){%>
+							<div class="views-field-albom-price tab_<%=identicals_c[i].ID_album%>_1" style="display: none;">
+								цена <%=identicals_c[i].alb_price2%>    
+							</div>
+						<%}%>
+					</div>
+					<div class="views-fields-links">
+						<a class="btn btn-sm btn-warning tab_<%=identicals_c[i].ID_album%>_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+						<a class="btn btn-sm btn-warning tab_<%=identicals_c[i].ID_album%>_1" href="#" style="display: none;" >В корзину</a>
+                    </div>
+				</div>
+              </div>
+			</div>
+			<%}%>   
+         
+          </div>
+
+		</div>
+	</div>
