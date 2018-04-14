@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<% include includes/links.ejs %>
     <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <div class="container">
@@ -21,15 +25,15 @@
           <a href="/registration">Регистрация</a>,
           если у вас еще нет учетной записи Виниломании
         </div>
-        <form class="mt-1 entrance">
+        <form class="mt-1 entrance" id="loginForm">
           <div class="form-group">
             <label for="Email">Логин/Электронная почта</label>
-            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Введите логин или email">
+            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Введите логин или email" name="identifier">
             <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
           </div>
           <div class="form-group">
             <label for="Password">Пароль</label>
-            <input type="password" class="form-control" id="Password" placeholder="Пароль">
+            <input type="password" class="form-control" id="Password" placeholder="Пароль" name="password">
           </div>
 
           <div class="form-check mb-2">
@@ -37,16 +41,24 @@
             <label class="form-check-label" for="Check1">Проверка</label>
           </div>
 
-          <button type="submit" class="btn btn-success mr-4">Войти</button>
+          <button type="button" id="submit" class="btn btn-success mr-4">Войти</button>
           <a href="#">Забыли пароль?</a>
         </form>
       </div>
     </div>
 
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(function(){
+      $("#submit").click(function(e) {
+      alert('Запрос');
+      $.post('/login/authorize', $("#loginForm").serialize(),
+      function() {
+      alert('Запрос выполнен');
+      });
+      });
+      });
+    </script>
+    
   </body>
 
 </html>

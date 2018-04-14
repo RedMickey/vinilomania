@@ -73,14 +73,12 @@ router.post('/insert', attachDB, function (req, res) {
 
 router.post('/update/updateQuery', attachDB, function (req, res) {
 
-    if (!req.body.disktype1)
-        req.body.disktype1 = 1;
     if (req.body.disktype1 == "on")
         req.body.disktype1 = 1;
     if (req.body.disktype2 == "on")
         req.body.disktype2 = 2;
     //req.db.query("INSERT INTO albums (ID_author,alb_name,ID_disktype1, ID_disktype2,alb_price1,alb_price2,ID_style,ID_genre,ID_prodtype,count1,count2,countdisk1,countdisk2,ID_origin,ID_label) VALUES (?)", [[req.body.author, req.body.alb_name, req.body.disktype1, req.body.disktype2, req.body.alb_price1, req.body.alb_price2, req.body.style, req.body.genre, req.body.prodtype, req.body.count1, req.body.count2, req.body.countdisk1, req.body.countdisk2, req.body.origin, req.body.label]])
-    req.db.query("UPDATE albums SET ID_author=?,alb_name=?,ID_disktype1=?, ID_disktype2=?,alb_price1=?,alb_price2=?,ID_style=?,ID_genre=?,ID_prodtype=?,count1=?,count2=?,countdisk1=?,countdisk2=?,ID_origin=?,ID_label=?  WHERE ID_album = ?", [[req.body.author, req.body.alb_name, req.body.disktype1, req.body.disktype2, req.body.alb_price1, req.body.alb_price2, req.body.style, req.body.genre, req.body.prodtype, req.body.count1, req.body.count2, req.body.countdisk1, req.body.countdisk2, req.body.origin, req.body.label, req.body.updatedID]])
+    req.db.query("UPDATE albums SET ID_author=?,alb_name=?,ID_disktype1=?, ID_disktype2=?,alb_price1=?,alb_price2=?,ID_style=?,ID_genre=?,ID_prodtype=?,count1=?,count2=?,countdisk1=?,countdisk2=?,ID_origin=?,ID_label=?  WHERE ID_album = ?", [[req.body.author], [req.body.alb_name], [req.body.disktype1], [req.body.disktype2], [req.body.alb_price1], [req.body.alb_price2], [req.body.style], [req.body.genre], [req.body.prodtype], [req.body.count1], [req.body.count2], [req.body.countdisk1], [req.body.countdisk2], [req.body.origin], [req.body.label], [req.body.updatedID]])
     .then(rows => {
             return req.db.close();
         },

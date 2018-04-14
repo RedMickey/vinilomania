@@ -4,10 +4,6 @@ var cart=(function ($) {
     var cartData,
         opts={};
 
-    function test() {
-        alert("ddsfdsfdsf");
-    }
-
     function init() {
         _initOptions();
         updateData();
@@ -194,8 +190,7 @@ var cart=(function ($) {
         changeCount: changeCount,
         getCount: getCount,
         getCountAll:getCountAll,
-        getSumma:getSumma,
-        test:test
+        getSumma:getSumma
     }
 })(jQuery);
 

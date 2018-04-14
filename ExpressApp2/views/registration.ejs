@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <% include includes/links.ejs %>
     <title>Registration</title>
+    <script src='https://www.google.com/recaptcha/api.js'></script>   
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+       
   </head>
   <body>
     <div class="container">
@@ -21,36 +27,34 @@
           <a href="/login">Вход</a>,
           если у вас уже есть учетная запись Виниломании
         </div>
-        <form class="mt-1 entrance">
+        <form class="mt-1 entrance" id="regForm">
          <div class="form-row">
            <div class="col-sm-6 pr-sm-4">
               <div class="form-group">
                 <label for="Email">Введите ваш адрес электронной почты</label>
-                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Email">
-                <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Email" name="email">
               </div>
               <div class="form-group">
-                <label for="login">Придумайте пользовательское имя</label>
-                <input type="text" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Login">
-                <small id="loginHelp" class="form-text text-muted">Необязательное поле для заполнения</small>
+                <label for="login">Придумайте пользовательское имя*</label>
+                <input type="text" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Login" name="login">
               </div>
               <div class="form-group">
                 <label for="Password">Введите пароль</label>
-                <input type="password" class="form-control" id="Password" placeholder="Не менее 5 символов">
+                <input type="password" class="form-control" id="Password" placeholder="Не менее 5 символов" name="password">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="Email">Фамилия*</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="name" name="name">
               </div>
               <div class="form-group">
                 <label for="Email">Имя*</label>
-                <input type="text" class="form-control" id="surname">
+                <input type="text" class="form-control" id="surname" name="surname">
               </div>
               <div class="form-group">
                 <label for="Email">Отчество*</label>
-                <input type="text" class="form-control" id="patronymic">
+                <input type="text" class="form-control" id="patronymic" name="patronymic">
               </div>
               <div class="text-center">*Заполняется по вашему желанию</div>
             </div>
@@ -60,20 +64,32 @@
             <input type="checkbox" class="form-check-input" id="Check1">
             <label class="form-check-label" for="Check1">Проверка</label>
           </div>       
-          <button type="submit" class="btn btn-success mr-4">Зарегистрироваться</button>
+          <button type="button" id="submit" class="btn btn-success mr-4">Зарегистрироваться</button>
         
         </form>
       </div>
     </div>
 
-
-
-
-
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+		$(function(){
+			$("#submit").click(function(e) {
+			alert('Запрос');
+			 $.post('/registration/addNewUser', $("#regForm").serialize(),
+            function(data) {
+                   if(data.res==1)
+                   {
+                    alert('Такой пользователь уже существует!');
+                   }
+                   else
+                   {
+                   alert('Регистрация прошла успешно!');
+                   document.location.replace("/");
+                   }
+				});
+			});
+		});
+		</script>
+  
   </body>
 
 </html>

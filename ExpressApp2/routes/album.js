@@ -10,7 +10,7 @@ var attachDB = function (req, res, next) {
     next();
 };
 
-router.get('/:author/:albName', attachDB, function (req, res, next) {
+router.get('/goods/:author/:albName', attachDB, function (req, res, next) {
     curAlbum.run(req, res, next);
     /*var catId = req.params["author"];
     var prodId = req.params["albName"];

@@ -23,26 +23,30 @@
             
 			<% for(var i=0; i<arrCont.length; i++) {%>
 			<div class="block-content-alb ">
-				<a href="<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">
+				<a href="/goods/<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">
                 <img class="alb-cover" src=/albums-img/<%=arrCont[i].ID_author%>/<%=arrCont[i].ID_album%>/<%=arrCont[i].album_cover%>>
               </a>     
 			  <div class="block-content-alb-body">
                 <div class="alb-name">
-                  <a href="<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>"><%=arrCont[i].alb_name%></a>
+                  <a href="/goods/<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>"><%=arrCont[i].alb_name%></a>
                 </div>
                 <div class="author-name">
                   <a href="#"><%=arrCont[i].author_name%></a>
                 </div>
 				<div class=".albom_views_tabs .albom_views_tabs_<%=arrCont[i].ID_album%>">
 					<ul class="views-field-albom-format-media" >
-						<%if(arrCont[i].ID_disktype1==1||arrCont[i].ID_disktype2==1){%>
+						<%if(arrCont[i].ID_disktype1==1){%>
 							<li class="tab tab-active" id="tab_<%=arrCont[i].ID_album%>_0">
-								<a href="<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">CD</a>
+								<a href="/goods/<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">CD</a>
 							</li>
 						<%}%>
-						<%if(arrCont[i].ID_disktype1==2||arrCont[i].ID_disktype2==2){%>
+						<%if(arrCont[i].ID_disktype2==2&&arrCont[i].ID_disktype1!=1){%>
+							<li class="tab tab-active" id="tab_<%=arrCont[i].ID_album%>_1">
+								<a href="/goods/<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">Винил</a>
+							</li>
+						<%} else if(arrCont[i].ID_disktype2==2){%>
 							<li class="tab" id="tab_<%=arrCont[i].ID_album%>_1">
-								<a href="<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">Винил</a>
+								<a href="/goods/<%=arrCont[i].author_name%>/<%=arrCont[i].alb_name%>">Винил</a>
 							</li>
 						<%}%>
 					</ul>
@@ -52,26 +56,26 @@
 								цена <%=arrCont[i].alb_price1%>    
 							</div>
 						<%}%>
-						<%if(arrCont[i].ID_disktype2==1){%>
-							<div class="views-field-albom-price tab_<%=arrCont[i].ID_album%>_0" style="display: block;">
+						<%if(arrCont[i].ID_disktype2==2&&arrCont[i].ID_disktype1!=1){%>
+							<div class="views-field-albom-price tab_<%=arrCont[i].ID_album%>_1" style="display: block;">
 								цена <%=arrCont[i].alb_price2%>    
 							</div>
-						<%}%>
-						<%if(arrCont[i].ID_disktype1==2){%>
+						<%} else if(arrCont[i].ID_disktype2==2){%>
 							<div class="views-field-albom-price tab_<%=arrCont[i].ID_album%>_1" style="display: none;">
-								цена <%=arrCont[i].alb_price1%>    
-							</div>
-						<%}%>
-						<%if(arrCont[i].ID_disktype2==2){%>
-							<div class="views-field-albom-price tab_<%=arrCont[i].ID_album%>_1" style="display: none;">
-								цена <%=arrCont[i].alb_price2%>    
+									цена <%=arrCont[i].alb_price2%>    
 							</div>
 						<%}%>
 					</div>
 					<div class="views-fields-links">
-						<a class="btn btn-sm btn-warning tab_<%=arrCont[i].ID_album%>_0" href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
-						<a class="btn btn-sm btn-warning tab_<%=arrCont[i].ID_album%>_1" href="#" style="display: none;" >В корзину</a>
-                    </div>
+						<%if(arrCont[i].ID_disktype1==1){%>
+						<a class="btn btn-sm btn-warning tab_<%=arrCont[i].ID_album%>_0 add-to-cart" data-id="<%=arrCont[i].ID_album%>_0" data-name="<%=arrCont[i].alb_name%>" data-price=<%=arrCont[i].alb_price1%>  href="#" style="display: inline-block;" aria-pressed="true">В корзину</a>
+						<%}%>
+						<%if(arrCont[i].ID_disktype2==2&&arrCont[i].ID_disktype1!=1){%>
+						<a class="btn btn-sm btn-warning tab_<%=arrCont[i].ID_album%>_1 add-to-cart" data-id="<%=arrCont[i].ID_album%>_1" data-name="<%=arrCont[i].alb_name%>" data-price=<%=arrCont[i].alb_price2%> href="#" style="display: inline-block;" >В корзину</a>
+						<%} else if(arrCont[i].ID_disktype2==2){%>
+						<a class="btn btn-sm btn-warning tab_<%=arrCont[i].ID_album%>_1 add-to-cart" data-id="<%=arrCont[i].ID_album%>_1" data-name="<%=arrCont[i].alb_name%>" data-price=<%=arrCont[i].alb_price2%> href="#" style="display: none;" >В корзину</a>
+						<%}%>
+					</div>
 				</div>
               </div>
 			</div>
