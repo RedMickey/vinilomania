@@ -42,13 +42,22 @@
     <Compile Include="controllers\CurAlbum.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="controllers\deleteAlb.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="controllers\Home.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\insertAlb.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="controllers\login.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="controllers\RegNew.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\updateAlb.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="controllers\updateGood.js">

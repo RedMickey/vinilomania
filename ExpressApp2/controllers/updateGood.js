@@ -7,6 +7,7 @@
     labels: null,
     origins: null,
     prodtypes: null,
+    songs: null,
     run: function (req, res, next) {
         req.db.query('SELECT ID_author, author_name FROM authors')
             .then(rows => {
@@ -16,6 +17,10 @@
             .then(rows => {
                 curProduct = rows[0];
                 console.log(curProduct);
+                return req.db.query('SELECT s.song_name, s.song_duration, s.number_in_alb, s.ID_song, s.ID_album FROM songs s inner join albums al on s.ID_album=al.ID_album WHERE al.ID_album=? ORDER BY s.number_in_alb', [req.params["id"]]);
+            })
+            .then(rows => {
+                songs = rows;
                 return req.db.query('SELECT * FROM genres')
             })
             .then(rows => {
@@ -50,7 +55,8 @@
                     styles: styles,
                     labels: labels,
                     origins: origins,
-                    prodtypes: prodtypes
+                    prodtypes: prodtypes,
+                    songs: songs
                 });
                 //console.log(novelties);
             })

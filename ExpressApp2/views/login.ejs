@@ -25,10 +25,10 @@
           <a href="/registration">Регистрация</a>,
           если у вас еще нет учетной записи Виниломании
         </div>
-        <form class="mt-1 entrance" id="loginForm">
+        <form class="mt-1 entrance" id="loginForm" action="/login/authorize" method="post">
           <div class="form-group">
             <label for="Email">Логин/Электронная почта</label>
-            <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Введите логин или email" name="identifier">
+            <input type="text" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Введите логин или email" name="identifier">
             <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
           </div>
           <div class="form-group">
@@ -41,7 +41,7 @@
             <label class="form-check-label" for="Check1">Проверка</label>
           </div>
 
-          <button type="button" id="submit" class="btn btn-success mr-4">Войти</button>
+          <button type="submit" id="submitttt" class="btn btn-success mr-4">Войти</button>
           <a href="#">Забыли пароль?</a>
         </form>
       </div>

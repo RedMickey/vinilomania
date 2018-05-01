@@ -131,6 +131,62 @@
               </div>
           </div>
 			<input type="hidden" name="updatedID" value="<%=product.ID_album%>">
+
+			<div id="songs">
+            <p>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseSongs" aria-expanded="false" aria-controls="collapseSongs">
+                Редактировать список песен
+              </button>
+            </p>
+            <div class="collapse" id="collapseSongs">
+              <div class="card card-body py-2 mb-2">
+                <h5>Песни</h5>
+                <div class="mb-3">
+                  <button type="button" id="add" class="btn btn-success btn-sm mr-2" data-toggle="collapse" data-target="#addSong" aria-expanded="false" aria-controls="addSong">Добавить</button>
+                  <button type="button" id="edit" class="btn btn-warning btn-sm mr-2" data-toggle="collapse" data-target="#addSong" aria-expanded="false" aria-controls="addSong">Редактировать</button>
+                  <button type="button" id="delete" class="btn btn-danger btn-sm">Удалить</button>
+                    <div class="collapse  mt-2" id="addSong">
+                      <div class="border rounded p-1">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <button type="button" id="insertIntoTable" class="btn btn-success btn-sm" style="display: none;">Вставить в таблицу</button>
+                            <button type="button" id="updateEntry" id-entry="-1" class="btn btn-success btn-sm" style="display: none;">Обновить строку</button>
+                          </div>
+                          <div class="col-auto">
+                            <input type="text" id="songName" class="form-control-sm" placeholder="Название">
+                          </div>
+                          <div class="col-auto mt-1 mt-md-1 mt-lg-0">
+                            <input type="text" id="songMin" class="form-control-sm" placeholder="Минуты">
+                          </div>
+                          <div class="col-auto mt-1 mt-md-1 mt-lg-0">
+                            <input type="text" id="songSec" class="form-control-sm" placeholder="Секунды">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <table class="table table-bordered mb-0 table-sm">
+                  <thead>
+                    <tr id-entry="-1">
+                      <th scope="col">#</th>
+                      <th scope="col">Название</th>
+                      <th scope="col">Длительность</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+				  <%for(var i=0; i<songs.length;i++){%>
+					<tr id-entry="<%=songs[i].number_in_alb%>">
+                      <th scope="row"><%=songs[i].number_in_alb%></th>
+                      <td><%=songs[i].song_name%></td>
+                      <td><%=songs[i].song_duration.substr(3)%></td>
+                    </tr>
+				  <%}%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
         </form>
 		  </div>
           
@@ -140,6 +196,47 @@
 		$(function(){
 			$("#submit").click(function(e) {
 			alert('Запрос');
+			var number=[];
+			var name=[];
+			var duration=[];
+			$('tr').each(function(index, elem){   
+				var k=1;
+				for(var i in elem.childNodes)
+				{
+					console.log(elem.childNodes[i]);
+					if(elem.childNodes[i].tagName=="TD"||elem.childNodes[i].tagName=="TH")
+					{
+						if(k==1)
+						{
+							number.push(elem.childNodes[i].innerText);
+							k++;
+							continue;
+						}
+						if(k==2)
+						{
+							name.push(elem.childNodes[i].innerText);
+							k++;
+							continue
+						}
+						if(k==3)
+						{
+							duration.push(elem.childNodes[i].innerText);
+							k++;
+							continue
+						}
+					}							    
+				}
+			});
+			console.log(number.length);
+
+			console.log(number);
+			console.log(name);
+			console.log(duration);
+			for(var i=1;i<number.length;i++)
+			{
+			  $('#insertForm').append("<input type='hidden' name='number' value='" + number[i] + "'>"+"<input type='hidden' name='songName' value='" + name[i] + "'>"+"<input type='hidden' name='duration' value='" + duration[i] + "'>");
+			}
+
 			 $.post('updateQuery', $("#insertForm").serialize(),
             function() {
                    alert('Запрос выполнен');
@@ -147,3 +244,75 @@
 			});
 		});
 		</script>
+
+		<script type="text/javascript">
+    //Вставить строку
+      $(function(){
+        $('#insertIntoTable').bind('click', function(e){
+          $('tr').last().after(`<tr id-entry="${$('tr').length}"><th scope="row">${$('tr').length}</th><td>${$('#songName').val()}</td><td>${$('#songMin').val()}:${$('#songSec').val()}</td></tr>`);
+        });
+      });
+      //Обновить строку
+      $(function(){
+        $('#updateEntry').bind('click', function(e){
+          if($(this).attr('id-entry')!=-1)
+          {
+            var curPosChildren=$("tr[id-entry="+$(this).attr('id-entry')+"]").children();
+            curPosChildren[1].innerText=$('#songName').val();
+            curPosChildren[2].innerText=`${$('#songMin').val()}:${$('#songSec').val()}`;
+            //$(this).attr('id-entry','-1');
+          }
+        });
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(function(){
+        $('body').on('click', 'tr',function(e){
+        $("tr[class=table-primary]").removeClass("table-primary");
+            
+        $(this).addClass("table-primary"); 
+         //alert("fgdf");
+        });
+      });
+
+      $(function(){
+        $('#delete').bind('click', function(e){
+          $("tr[class=table-primary]").remove();
+          var trs=$('tr');
+          for (var i=1;i<trs.length;i++)
+          {
+            $(trs[i]).attr('id-entry',i);
+            $(trs[i]).children()[0].textContent=i;
+          }
+        });
+      });
+
+
+      $(function(){
+        $('#edit').bind('click', function(e){
+          $('#insertIntoTable').css('display','none');
+          $('#updateEntry').css('display','block');
+          var curPos=$("tr[class=table-primary]");
+          if(curPos.length!=0)
+            {
+              var children=$(curPos[0]).children();
+              $('#updateEntry').attr('id-entry',children[0].innerText);
+              $('#songName').val(children[1].innerText);
+              var time=children[2].innerText.split(':');
+              $('#songMin').val(time[0]);
+              $('#songSec').val(time[1]);
+            }
+        });
+      });
+
+      $(function(){
+        $('#add').bind('click', function(e){
+          $('#songName').val('');
+          $('#songMin').val('');
+          $('#songSec').val('');
+          $('#insertIntoTable').css('display','block');
+          $('#updateEntry').css('display','none');
+        });
+      });
+    </script>
