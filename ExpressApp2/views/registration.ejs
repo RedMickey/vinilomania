@@ -27,20 +27,29 @@
           <a href="/login">Вход</a>,
           если у вас уже есть учетная запись Виниломании
         </div>
-        <form class="mt-1 entrance" id="regForm">
+        <form class="mt-1 entrance" id="regForm" class="needs-validation" novalidate>
          <div class="form-row">
            <div class="col-sm-6 pr-sm-4">
               <div class="form-group">
                 <label for="Email">Введите ваш адрес электронной почты</label>
-                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Email" name="email">
+                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Email" name="email" required>
+                 <div class="invalid-feedback">
+                   Электронный адрес введён неверно
+                 </div>
+             </div>
+             <div class="form-group">
+               <label for="PasswordMain">Введите пароль</label>
+               <input type="password" class="form-control" id="PasswordMain" pattern="(?=.*\d)(?=.*[A-Za-z]).{6,}" placeholder="Не менее 6 символов" name="passwordMain" required>
+               <div class="invalid-feedback">
+                 Некорректный пароль
+               </div>              
               </div>
               <div class="form-group">
-                <label for="login">Придумайте пользовательское имя*</label>
-                <input type="text" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Login" name="login">
-              </div>
-              <div class="form-group">
-                <label for="Password">Введите пароль</label>
-                <input type="password" class="form-control" id="Password" placeholder="Не менее 5 символов" name="password">
+                <label for="PasswordRep">Введите пароль ещё раз</label>
+                <input type="password" class="form-control" id="PasswordRep" pattern="(?=.*\d)(?=.*[A-Za-z]).{6,}" placeholder="Не менее 6 символов" name="passwordRep" required>
+                 <div class="invalid-feedback">
+                   Некорректный пароль
+                 </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -59,11 +68,7 @@
               <div class="text-center">*Заполняется по вашему желанию</div>
             </div>
           </div>
-
-          <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" id="Check1">
-            <label class="form-check-label" for="Check1">Проверка</label>
-          </div>       
+     
           <button type="button" id="submit" class="btn btn-success mr-4">Зарегистрироваться</button>
         
         </form>
@@ -71,24 +76,35 @@
     </div>
 
   <script type="text/javascript">
-		$(function(){
-			$("#submit").click(function(e) {
-			alert('Запрос');
-			 $.post('/registration/addNewUser', $("#regForm").serialize(),
-            function(data) {
-                   if(data.res==1)
-                   {
-                    alert('Такой пользователь уже существует!');
-                   }
-                   else
-                   {
-                   alert('Регистрация прошла успешно!');
-                   document.location.replace("/");
-                   }
-				});
-			});
-		});
-		</script>
+    $(function(){
+    $("#submit").click(function(e) {
+    if ($("#Email").val().length==0||$("#PasswordMain").val().length<6)
+    {
+    $("#regForm").addClass("was-validated");
+    return;
+    }
+    if ($("#PasswordMain").val()!=$("#PasswordRep").val())
+     {
+     $('<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">Введённые пароли не совпадают!<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>').prependTo('#regForm');     
+     return;
+     }        
+    alert('Запрос');
+    $.post('/registration/addNewUser', $("#regForm").serialize(),
+    function(data) {
+    if(data.res==1)
+    {
+    $('<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">Данный email уже используется!<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button></div>').prependTo('#regForm');     
+    alert('Такой пользователь уже существует!');
+    }
+    else
+    {
+    alert('Регистрация прошла успешно!');
+    document.location.replace("/");
+    }
+    });
+    });
+    });
+  </script>
   
   </body>
 

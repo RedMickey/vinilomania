@@ -36,7 +36,25 @@
     <Compile Include="controllers\Admin.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="controllers\API\addOrder.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\API\deleteOrder.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\API\getAlbumById.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\API\getAlbumsByIds.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\API\updateOrder.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="controllers\Base.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controllers\basket.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="controllers\CurAlbum.js">
@@ -63,6 +81,9 @@
     <Compile Include="controllers\updateGood.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="controllers\validations\addDataForCart.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="models\Base.js">
       <SubType>Code</SubType>
     </Compile>
@@ -80,6 +101,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes\album.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\api.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\basket.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes\index.js" />
@@ -3053,6 +3080,7 @@
     <Content Include="views\admLayout.ejs" />
     <Content Include="views\extends\addGood.ejs" />
     <Content Include="views\extends\admGoods.ejs" />
+    <Content Include="views\extends\basket.ejs" />
     <Content Include="views\extends\curalb.ejs" />
     <Content Include="views\extends\index.ejs" />
     <Content Include="views\extends\updateGood.ejs" />
@@ -3067,6 +3095,8 @@
     <Content Include="views\registration.ejs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="controllers\API\" />
+    <Folder Include="controllers\validations\" />
     <Folder Include="models\" />
     <Folder Include="controllers\" />
     <Folder Include="public\" />

@@ -1,0 +1,143 @@
+﻿<%# views/extends/basket.ejs %>
+ 
+<% extend('../layout') %>	
+		<div class="path">
+          ГЛАВНАя/КОРЗИНА
+        </div>
+		<%if (user){%>
+        <div class="container d-flex"> 
+          <div class="p-1 b-tittle-3">Оформить заказ</div>
+          <div class="ml-auto p-1 b-tittle-4">1 товар</div>
+        </div>
+        <div class="container">
+          <form>
+            <div class="form-row">
+              <div class="col-md-6 p-0 mb-2">
+                <div class="form-order p-3 rounded">
+                  <div class="b-form-tit">
+                    Получатель
+                  </div>
+                  <div class="p-2">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="surname" placeholder="Фамилия">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="name" placeholder="Имя">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="patronymic" placeholder="Отчество">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="phone" placeholder="Телефон: +7 ХХХ-ХХХ-ХХ-ХХ" value size="60" maxlength="128">
+                    </div>
+                    <div class="form-group">
+                      <input type="email" class="form-control" name="email" placeholder="E-mail">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 p-0 mb-2">
+                <div class="form-order p-3 rounded h-100">
+                  <div class="b-form-tit">
+                    Доставка
+                  </div>
+                  <div class="p-2">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="city" placeholder="Город">
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="deliverBy" id="IdByPostamat" value="postamat">
+                      <label class="form-check-label" for="IdByPostamat">
+                        Через пункт выдачи или в постамат
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="deliverBy" id="IdByPost" value="post">
+                      <label class="form-check-label" for="IdByPost">
+                        Почта России (в отделение связи)
+                      </label>               
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="b-tittle-3 text-center mb-2">
+            <span class="mr-4">Итого:</span> 1 товар на сумму <span style="color: #f7941e;">585 р</span>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style="color: #f7941e;">Детали Вашего заказа:</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Формат</th>
+                <th scope="col">Кол-во</th>
+                <th scope="col">Сумма</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">
+                  <div class="float-left align-items-center">       
+                    <img src="albums-img/2/2/5dad5a84a8aafec41c02f7e8c0f9d59d_0_s.jpeg" alt="" class="mr-2 mt-1 d-inline float-left">
+                    <div class="d-inline float-left align-middle">
+                      <div class="table-text">
+                       40 Trips Around The Sun
+                      </div>
+                      <div class="table-text">
+                       Toto
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <td class="align-middle">120 р</td>
+                <td class="align-middle">
+                  <div class="tab">
+                    CD
+                  </div>
+                </td>
+                <td class="align-middle">
+                  <div>
+                    <input class="form-control-sm" type="text" size="1" style="background-color: inherit;">
+                    <button class="btn-sm btn-danger"><span class="oi oi-trash"></span></button>
+                  </div>
+                </td>
+                <td class="align-middle">240 р</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <div class="float-left align-items-center">       
+                    <img src="albums-img/2/2/5dad5a84a8aafec41c02f7e8c0f9d59d_0_s.jpeg" alt="" class="mr-2 mt-1 d-inline float-left">
+                    <div class="d-inline float-left align-middle">
+                      <div class="table-text">
+                       40 Trips Around
+                      </div>
+                      <div class="table-text">
+                       Toto
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <td class="align-middle">120 р</td>
+                <td class="align-middle">
+                  <div class="tab">
+                    CD
+                  </div>
+                </td>
+                <td class="align-middle">
+                  <div>
+                    <input class="form-control-sm" type="text" size="1" style="background-color: inherit;">
+                    <button class="btn-sm btn-danger"><span class="oi oi-trash"></span></button>
+                  </div>
+                </td>
+                <td class="align-middle">240 р</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mt-2 mb-2 text-center">
+            <button type="button" class="btn btn-success btn-lg">Оформить заказ</button>
+          </div>
+        </div>
+		<%} else{%>
+		<div class="d-none buildByJqueryView"></div>
+		<%}%>

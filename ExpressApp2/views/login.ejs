@@ -26,22 +26,25 @@
           если у вас еще нет учетной записи Виниломании
         </div>
         <form class="mt-1 entrance" id="loginForm" action="/login/authorize" method="post">
+          <%if (message.length>0){%>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%=message[0]%>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <%}%>
           <div class="form-group">
-            <label for="Email">Логин/Электронная почта</label>
-            <input type="text" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Введите логин или email" name="identifier">
+            <label for="Email">Электронная почта</label>
+            <input type="text" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Введите email" name="identifier" required>
             <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
           </div>
           <div class="form-group">
             <label for="Password">Пароль</label>
-            <input type="password" class="form-control" id="Password" placeholder="Пароль" name="password">
+            <input type="password" class="form-control" id="Password" placeholder="Пароль" name="password" required>
           </div>
 
-          <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" id="Check1">
-            <label class="form-check-label" for="Check1">Проверка</label>
-          </div>
-
-          <button type="submit" id="submitttt" class="btn btn-success mr-4">Войти</button>
+          <button type="submit" id="submittt" class="btn btn-success mr-4">Войти</button>
           <a href="#">Забыли пароль?</a>
         </form>
       </div>

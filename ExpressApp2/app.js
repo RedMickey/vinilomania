@@ -7,30 +7,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var database = require('./models/mod_DB');
-
-
 var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var SessionStore = require('express-mysql-session')(session);
 
-
-//var connect = require('connect');
-
 var DB_settings = require('./DB_con.json');
+var database = require('./models/mod_DB');
 
+//*******************************************************************подключение маршрутов
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
 var users = require('./routes/users');
 var album = require('./routes/album');
 var login = require('./routes/login');
+var basket = require('./routes/basket');
 var registration = require('./routes/registration');
+var api = require('./routes/api');
 
 var app = express();
 
-// view engine setup
+//***************************************************** view engine setup
 app.engine('ejs', require('express-ejs-extend'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -40,14 +38,16 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(flash());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//**********************************************настройки соединение с бд для express-mysql-session
 var options = {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'vinilomania',
+    host: DB_settings.DB_HOST,
+    user: DB_settings.DB_USERNAME,
+    password: DB_settings.DB_PASSWORD,
+    database: DB_settings.DB_DATABASE,
     createDatabaseTable: true,
     charset: 'utf8mb4_bin',
     schema: {
@@ -60,12 +60,13 @@ var options = {
     }
 }
 
+//****************************************************настройки сессий
 app.use(session({
     key: 'session_cookie_name',
     secret: 'session_cookie_secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true },
+    resave: true,
+    saveUninitialized: true,
+    //cookie: { secure: true },
     store: new SessionStore(options)
 }))
 
@@ -73,31 +74,38 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
 // *******************************************************авторизация**********************************************************************************************
+function isAuthenticated(req, res, next) {
+    console.log("req.isAuthenticated " + req.isAuthenticated());
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/login');
+}
+
 passport.use('local', new LocalStrategy({
     usernameField: 'identifier',
     passwordField: 'password',
     passReqToCallback: true
     },
-    function(req, username, password, done) {
-        if (!username || !password) { return done(null, false, req.flash( 'message', 'All fields are required.' )); }
+    function (req, username, password, done) {
+        if (!username || !password) { return done(null, false, { message: 'Неверный ввод.' }); }
         var db = new database();
-
-        db.query("SELECT * FROM users WHERE login=?", username)
+        var resRow = null;
+        db.query("SELECT * FROM users WHERE email=?", username)
             .then(rows => {
                 console.log(rows);
+                
                 if (!rows.length)
                 {
-                    return db.close().then(() => { return done(null, false, req.flash('message', 'Invalid username or password.')); })
+                    return db.close().then(() => { return done(null, false, { message: 'Неверное имя пользователя или пароль.' }); })
                 }
 
                 if (password != rows[0].password)
                 {
-                    return db.close().then(() => { return done(null, false, req.flash('message', 'Invalid username or password.')); })
+                    return db.close().then(() => { return done(null, false, { message: 'Неверное имя пользователя или пароль.' }); })
                 }
-
-                return db.close().then(() => { return done(null, rows[0]); })
+                return db.close().then(() => {return done(null, rows[0]); })
                 
             },err => {
                 return db.close().then(() => { return done(req.flash('message', err)); })
@@ -106,59 +114,94 @@ passport.use('local', new LocalStrategy({
     }
 ));
 
-/*passport.use('local', new LocalStrategy({
-    usernameField: 'identifier',
-    passwordField: 'password'
-    },
-    function (username, password, done) {
-        console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-        if (username == "admin" && password == "admin") {
-            return done(null, {
-                username: "admin",
-                photoUrl: "url_to_avatar",
-                profileUrl: "url_to_profile"
-            });
-        }
-
-        return done(null, false, {
-            message: 'Неверный логин или пароль'
-        });
-    }
-));*/
-
 passport.serializeUser(function (user, done) {
-    done(null, user.User_ID);
+    console.log("serializeUser "+ user.User_ID);
+    done(null, {
+        username: (user.user_name && user.user_name != "") ? user.user_name : user.email,
+        userID: user.User_ID,
+        userRoleID: user.user_role_ID
+    });
 });
 
 
 passport.deserializeUser(function (data, done) {
     var db = new database();
-
-    db.query("SELECT * FROM users WHERE User_ID=?", user.User_ID)
+    console.log("DeserializeUser " + data.userID);
+    var reqStr = null;
+    db.query("SELECT * FROM users WHERE User_ID=?", data.userID)
         .then(rows => {
-            return db.close().then(() => { return done(err, rows[0]); })
+            reqStr = rows[0];
+            return db.close();
         },
         err => {
-            return req.db.close().then(() => { throw err; })
+            return db.close().then(() => { throw err; })
         }
         )
+        .then(() => {
+            return done(null, reqStr);
+        })
         .catch(err => {
             console.log(err);
         })
 });
-//******************************************************************************************************************************************************************************
+//**************************************ROUTES***COMMON***************************************************************************************************************
+
 app.use('/', album);
 app.use('/', routes);
+app.use('/to/admin/panel', isAuthenticated, isAdmin, admin);
+app.use('/basket', basket);
+app.use('/api', api);
+
+//******************************************************************проверка_ролей*********************************************************************************
+function isAdmin(req, res, next) {
+    console.log("req.session.passport.user.userRoleID " + req.session.passport.user.userRoleID);
+    if (req.session.passport.user.userRoleID == 2) {
+        //console.log("NEXT!!!");
+        return next();
+    }
+    
+    res.redirect('/');
+}
+
+//******************************************************************проверка_авторизации_для_корзины**********************************************************************
+function addDataForCart(req, res, next) {
+    console.log("Данные для корзины добавлены");
+    if (req.isAuthenticated()) {
+        var db = new database();
+        db.query("SET @p0=?; CALL `calculSumAndCount`(@p0, @p1, @p2); SELECT @p1 AS `countGoods`, @p2 AS `sumPrice`;", [req.session.passport.user.userID])
+            .then(rows => {
+                //reqStr = rows[0];
+                console.log(rows[2][0].countGoods);
+                console.log(rows[2][0].sumPrice);
+                return db.close();
+            },
+            err => {
+                return db.close().then(() => { throw err; })
+            }
+            )
+            .then(() => {
+                return done(null, reqStr);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        return next();
+    }
+    else
+        return next();
+}
+
+//*************************************ROUTES***LOGIN***LOGOUT***REGIST****************
 app.use('/login', login);
-app.use('/to/admin/panel', passport.authenticate('local', { failureRedirect: '/login'}), admin);
 app.use('/registration', registration);
-/*app.use('/:author/:albName', (req, res, next)=>{
-    res.send('respond with a resource');
-});*/
-/*app.get('/:author/:albName', function (req, res, next) {
-    res.send('respond with a resource');
-});*/
-//app.use('/:author/:albName', album);
+app.get('/logout', isAuthenticated, function (req, res) {
+    req.logout();
+    //console.log("req.url" + req.url);
+    res.redirect('/');
+});
+
+
 app.use('/users', users);
 
 // catch 404 and forward to error handler

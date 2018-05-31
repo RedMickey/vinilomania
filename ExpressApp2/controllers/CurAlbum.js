@@ -30,7 +30,8 @@
                 res.render('extends/curalb', {
                     alb_c: alb[0],
                     songs: al_songs,
-                   identicals_c: identicals
+                    identicals_c: identicals,
+                    user: (req.session.passport) ? req.session.passport.user : null
                 });
             })
             .catch(err => {

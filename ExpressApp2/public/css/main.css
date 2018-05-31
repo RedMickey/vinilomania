@@ -112,12 +112,19 @@
     font-size: 18px;
 }
 
-.b-tittle, .b-tittle2{
-    position: relative;
-    z-index: 2;
-    float: left;
+.b-tittle-3, .b-tittle, .b-tittle2, .b-tittle-4, .b-form-tit{
     font-family: 'trebuchet ms';
     background: #f2f2f2;
+    z-index: 2;
+}
+
+.b-tittle-3, .b-tittle-4, .b-form-tit{
+  font-weight: bold;
+}
+
+.b-tittle, .b-tittle2{
+    position: relative;
+    float: left;
 }
 
 .b-tittle{
@@ -138,7 +145,13 @@
     position: relative;  
 }
 
-.count{
+.table-text{
+  font-size: 13px;
+  word-wrap: break-word;
+  width: 120px;
+}
+
+.count, .b-tittle-3{
     
     font-size: 20px;
     /*display: flex;
@@ -243,7 +256,7 @@
   
 }
 
-.alboms_art_link>a,{
+.alboms_art_link>a, .b-tittle-4{
   color: #f7941e;
   text-decoration: none;
 }
@@ -342,12 +355,20 @@
 
 }
 
+.form-order, .b-form-tit{
+  background-color: #E7E7E7 !important;
+  margin-left: 1px;
+  margin-right: 2px;
+}
+
 .path{
   background-color: #E7E7E7;
   padding: 20px;
   color: #AAAAAA;
   text-transform: uppercase; 
 }
+
+
 
 .views-field-albom-format-media{
     width: 100%;

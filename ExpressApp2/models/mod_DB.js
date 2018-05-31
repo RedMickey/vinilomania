@@ -9,7 +9,8 @@ class Database {
             host: DB_settings.DB_HOST,
             user: DB_settings.DB_USERNAME,
             password: DB_settings.DB_PASSWORD,
-            database: DB_settings.DB_DATABASE
+            database: DB_settings.DB_DATABASE,
+            multipleStatements: true
         });
     }
 

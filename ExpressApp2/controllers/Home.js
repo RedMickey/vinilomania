@@ -22,11 +22,23 @@
             }
             )
             .then(() => {
+                (req.session.passport) ? console.log(req.session.passport.user) : console.log("NO USER");
+                var _user = null;
+                var _countGoods = null;
+                var _sumPrice = null;
+                if (req.session.passport) {
+                    _user = req.session.passport.user;
+                    _countGoods = req.countGoods;
+                    _sumPrice = req.sumPrice;
+                }
                 res.render('extends/index', {
                     content: [novelties, bestsellers, PreOrders],
-                    tittles: ['новинки','бестселлеры','предзаказы']
+                    tittles: ['новинки', 'бестселлеры', 'предзаказы'],
+                    user: _user,
+                    countGoods: _countGoods,
+                    sumPrice: _sumPrice
                 });
-                console.log(novelties);
+                //console.log(novelties);
             })
             .catch(err => {
                 console.log(err);

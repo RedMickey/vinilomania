@@ -19,6 +19,7 @@ var attachDB = function (req, res, next) {
 };
 
 router.get('/', attachDB, function (req, res, next) {
+    console.log(req.session.passport.user.username);
     admGoods.run(req, res, next);
 });
 

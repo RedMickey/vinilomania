@@ -2,6 +2,7 @@
 var express = require('express');
 var database = require('./../models/mod_DB');
 var curAlbum = require('./../controllers/CurAlbum');
+var findAlmById = require('./../controllers/API/getAlbumById');
 var mysql = require('mysql');
 var router = express.Router();
 
@@ -16,6 +17,10 @@ router.get('/goods/:author/:albName', attachDB, function (req, res, next) {
     var prodId = req.params["albName"];
     res.send(`Категория: ${catId}    Товар: ${prodId}`);
     res.send('respond with a resource');*/
+});
+
+router.post('/goods/getAlbumById', attachDB, function (req, res, next) {
+
 });
 
 module.exports = router;

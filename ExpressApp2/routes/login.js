@@ -11,13 +11,15 @@ var attachDB = function (req, res, next) {
 }
 
 router.get('/', function (req, res) {
-    res.render('login');
+    res.render('login', { message: req.flash('error') });
 });
 
 router.post('/authorize',
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
+        failureFlash: true
+        //failureFlash: 'Invalid username or password.'
     })
 );
 

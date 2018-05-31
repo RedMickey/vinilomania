@@ -8,9 +8,14 @@
               </button>
 
               <div class="dropdown-menu" aria-labelledby="dropdownAcc">
-                <a class="dropdown-item" href="/login">Вход</a>
+                <%if (user){%>
+                  <a class="dropdown-item" href="#"><%=user.username%></a>
+                  <a class="dropdown-item" href="/logout">Выйти</a>
+                <%} else{%>
+                  <a class="dropdown-item" href="/login">Вход</a>
+                <%}%>
                 <a class="dropdown-item" href="/registration">Регистрация</a>
-                <a class="dropdown-item" href="#">Корзина<div class="round-basket total-cart-count"></div></a>
+                <a class="dropdown-item" href="/basket">Корзина<div class="round-basket total-cart-count"><%if (user){%><%=countGoods%><%}%></div></a>
               </div>
             </div>
           </div>
@@ -41,7 +46,10 @@
   
               <div class="col-md-0 col-sm-0 col-xl-3 col-12 d-none d-xl-block">
                 <div class="float-right mr-3 navbar-collapse">       
-                  <a href="#" class="basket">
+                  <%if (!user){%>
+                    <div class="d-none buildByJqueryScore"></div>
+                    <%}%>
+                  <a href="/basket" class="basket">
                     <span class="oi oi-basket"></span>
                   </a>
                   <div class="d-inline float-right block-basket">
@@ -50,11 +58,11 @@
                         <tbody>
                           <tr>
                             <td class="text-basket ">альбомы:</td>
-                            <td class="text-basket-val pl-2 total-cart-count"></td>
+                            <td class="text-basket-val pl-2 total-cart-count"><%if (user){%><%=countGoods%><%}%></td>
                           </tr>
                           <tr>
                             <td class="text-basket mr-2">НА СУММУ:</td>
-                            <td class="text-basket-val pl-2" id="total-cart-summa"></td>
+                            <td class="text-basket-val pl-2 total-cart-summa"><%if (user){%><%=sumPrice%> руб<%}%></td>
                           </tr>
                         </tbody>
                       </table>

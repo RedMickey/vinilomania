@@ -8,7 +8,7 @@
                 console.log(isUser);
                 if (row[0].result == 0) {
                     console.log("insert");
-                    return req.db.query("INSERT INTO users (login,password,email,user_name,user_surname,user_patronymic) VALUES (?)", [[req.body.login, req.body.password, req.body.email, req.body.name, req.body.surname, req.body.patronymic]]).
+                    return req.db.query("INSERT INTO users (password,email,user_name,user_surname,user_patronymic, user_role_ID) VALUES (?)", [[req.body.passwordMain, req.body.email, req.body.name, req.body.surname, req.body.patronymic, 1]]).
                         then(() => {
                             return req.db.close();
                         },
