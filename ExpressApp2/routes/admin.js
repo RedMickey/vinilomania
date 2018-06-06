@@ -10,7 +10,6 @@ var updateGood = require('./../controllers/updateGood');
 var mysql = require('mysql');
 var bodyParser = require("body-parser");
 // работа с файлами
-//var formidable = require('formidable');
 var fs = require('fs-extra');
 
 var jsonParser = bodyParser.json();
