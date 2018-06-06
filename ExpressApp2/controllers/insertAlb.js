@@ -15,6 +15,12 @@
             .then(rows => {
                 curAlbID = rows[0];
                 console.log(curAlbID);
+
+                var dir = './public/albums-img/' + req.body.author + "/" + curAlbID.ID_album;
+                req.fs.ensureDir(dir, err => {
+                    console.log(err);
+                })
+
                 if (req.body.number !== undefined) {
                     for (var i = 0; i < req.body.duration.length; i++) {
                         var shortage = 8 - req.body.duration[i].length;

@@ -27,6 +27,8 @@ var cart=(function ($) {
             renderCartOnInit: '.buildByJqueryScore',    // рендерить ли корзину при инициализации
             renderCartViewOnInit: '.buildByJqueryView', // рендерить представление корзины
             elAddToCart: '.add-to-cart',                // селектор для кнопки добавления в корзину
+            elDeleteFromCart: '.delete-from-cart',      // селектор для кнопки удадения из карзины
+            elChangeQuantityGoods: '.change-quantity-goods',      // селектор для input text при изменении текста
             attrId: 'data-id',                          // дата-атрибут для id товара
             attrName: 'data-name',                      // дата-атрибут для названия товара
             attrPrice: 'data-price',                    // дата-атрибут для цены товара
@@ -46,9 +48,13 @@ var cart=(function ($) {
     function _bindHandlers() {
         if (opts.workWithLocalStorage){
             _onClickAddBtnLS();
+            _onDeleteOrderLS();
+            _onChangeQuantityLS();
         }
         else{
             _onClickAddBtnDB();
+            _onDeleteOrderDB();
+            _onChangeQuantityDB();
         }
     }
 
@@ -76,12 +82,58 @@ var cart=(function ($) {
                 function(data){
                     data=JSON.parse(data);
                     console.log(data);
+                    renderCartDataDB(data.countGoods, data.sum);
 
                     alert('Товар добавлен в корзину БД');
                 });
+        });
+    }
 
-            //renderCartDataDB();
-            //alert('Товар добавлен в корзину БД');
+    // биндинг события "Изменение количества товара с БД" 
+    function _onChangeQuantityDB()
+    {
+        $('body').on('change', opts.elChangeQuantityGoods, function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var value=$this.val();
+            if (value.length==0||/\D/.test(value))
+                {
+                    value="1";
+                    $(this).val(value);
+                }
+            if (value[0]=='0')
+            {
+                value="1";
+                $(this).val(value);
+            }
+
+            $.post('api/updateOrder', {"id_order": $this.attr(opts.attrId), "quantity_or": Number(value)},
+                function(data){
+                    data=JSON.parse(data);
+                    console.log(data);
+
+                    renderCurrentSumCartDB($this.attr(opts.attrId), (Number(value)*$this.attr(opts.attrPrice)));
+                    renderCartDataDB(data.countGoods, data.sum);
+                }); 
+        });
+    }
+
+    // биндинг события "Удаление заказа с БД"
+    function _onDeleteOrderDB()
+    {
+        $('body').on('click', opts.elDeleteFromCart, function(e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $.post('api/deleteOrder', {"id_order": $this.attr(opts.attrId)},
+                function(data){
+                    data=JSON.parse(data);
+                    console.log(data);
+                    renderCartDataDB(data.countGoods, data.sum);
+
+                    $('tr[class='+$this.attr(opts.attrId)+']').remove();
+                    alert('Товар удалён из корзины');
+                });            
         });
     }
 
@@ -90,6 +142,11 @@ var cart=(function ($) {
     {
         $(opts.elTotalCartCount).html(countGoods);
         $(opts.elTotalCartSumma).html(sumPrice+" руб");
+    }
+
+    // Рендерим сумму определённого товара
+    function renderCurrentSumCartDB(id, sum) {
+        $(opts.elCartSumma, "."+id).html(sum+" р");
     }
 
 // ***************************************************Work*with*localStorage***************************************
@@ -107,6 +164,52 @@ var cart=(function ($) {
             renderMenuCart();
             renderTotalCartSumma();
             alert('Товар добавлен в корзину');
+        });
+    }
+
+    // Изменение количества товара
+    function _onChangeQuantityLS()
+    {
+        $('body').on('change', opts.elChangeQuantityGoods, function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var value=$this.val();
+            if (value.length==0||/\D/.test(value))
+                {
+                    value="1";
+                    $(this).val(value);
+                }
+            if (value[0]=='0')
+            {
+                value="1";
+                $(this).val(value);
+            }
+
+            changeCount($this.attr(opts.attrId), Number(value));
+            //console.log(cartData);
+
+            saveData();
+
+            renderCurrentSumCart($this.attr(opts.attrId));
+            renderMenuCart();
+            renderTotalCartSumma();
+            //alert('Товар изменён');
+        });
+    }
+
+    // Удаление заказа
+    function _onDeleteOrderLS()
+    {
+        $('body').on('click', opts.elDeleteFromCart, function(e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            remove($this.attr(opts.attrId));
+            $('tr[class='+$this.attr(opts.attrId)+']').remove();
+
+            renderMenuCart();
+            renderTotalCartSumma();
+            alert('Товар удалён из корзины');
         });
     }
 
@@ -149,6 +252,12 @@ var cart=(function ($) {
         }
     }
 
+    // Рендерим сумму определённого товара
+    function renderCurrentSumCart(id) {
+        var item=getById(id);
+        $(opts.elCartSumma, "."+id).html((item.price*item.count)+" р");
+    }
+
     // Рендерим количество товаров в меню
     function renderMenuCart() {
         var countAll = getCountAll();
@@ -167,11 +276,11 @@ var cart=(function ($) {
         $(".path").after(
         '<div class="container d-flex">'+
           '<div class="p-1 b-tittle-3">Оформить заказ</div>'+
-          '<div class="ml-auto p-1 b-tittle-4">'+(countAll !== 0 ? countAll : 0)+' товар</div>'+
+          '<div class="ml-auto p-1 b-tittle-4"><span class="total-cart-count">'+countAll+'</span> товар</div>'+
         '</div>'
             );
         if (countAll === 0){
-            $(".container.d-flex").after('<div>Корзина пуста</div>');
+            $(".container.d-flex").after('<div class="text-center my-2 cart-empty">Корзина пуста</div>');
         }
         else{
             $(".container.d-flex").after(
@@ -229,7 +338,7 @@ var cart=(function ($) {
                     '</div>'+
                   '</form>'+
                   '<div class="b-tittle-3 text-center mb-2">'+
-                    '<span class="mr-4">Итого:</span> '+countAll+' товар на сумму <span style="color: #f7941e;">'+getSumma()+' р</span>'+
+                    '<span class="mr-4">Итого:</span> <span class="total-cart-count">'+countAll+'</span> товар на сумму <span class="total-cart-summa" style="color: #f7941e;">'+getSumma()+' руб</span>'+
                   '</div>'+
                   '<table class="table">'+
                     '<thead>'+
@@ -305,7 +414,7 @@ var cart=(function ($) {
                 '</th>'+
                 '<td class="align-middle">'+order.price+' р</td>'+
                 '<td class="align-middle">'+
-                  '<div class="tab">'+
+                  '<div class="tab-table">'+
                     typeName+
                   '</div>'+
                 '</td>'+
@@ -343,7 +452,7 @@ var cart=(function ($) {
                         typeName="Винил";
                     }
                 $("tbody[class='basketGoods']").append(
-                  '<tr>'+
+                  '<tr class="'+cartData[i].id+'">'+
                     '<th scope="row">'+
                       '<div class="float-left align-items-center">'+       
                         '<img src="albums-img/'+data[i].ID_author+'/'+data[i].ID_album+'/'+data[i].album_cover.split('.').join('_s.')+'" alt="" class="mr-2 mt-1 d-inline float-left">'+
@@ -359,17 +468,17 @@ var cart=(function ($) {
                     '</th>'+
                     '<td class="align-middle">'+cartData[i].price+' р</td>'+
                     '<td class="align-middle">'+
-                      '<div class="tab">'+
+                      '<div class="tab-table">'+
                         typeName+
                       '</div>'+
                     '</td>'+
                     '<td class="align-middle">'+
                       '<div>'+
-                        '<input class="form-control-sm" value='+cartData[i].count+' type="text" size="1" style="background-color: inherit;">'+
-                        '<button class="btn-sm btn-danger"><span class="oi oi-trash"></span></button>'+
+                        '<input class="form-control-sm change-quantity-goods" data-id='+cartData[i].id+' value='+cartData[i].count+' type="text" size="1" style="background-color: inherit;">'+
+                        '<button class="btn-sm btn-danger delete-from-cart" data-id='+cartData[i].id+'><span class="oi oi-trash"></span></button>'+
                       '</div>'+
                     '</td>'+
-                    '<td class="align-middle">'+(cartData[i].price*cartData[i].count)+' р</td>'+
+                    '<td class="align-middle js-summa '+cartData[i].id+'">'+(cartData[i].price*cartData[i].count)+' р</td>'+
                   '</tr>'
                     );
             }
@@ -394,16 +503,14 @@ var cart=(function ($) {
 // Удаление товара из коллекции
     function remove(id) {
         updateData();
-        /*cartData = _.reject(cartData, function(item) {
-            return item.id === id;
-        });*/
-        cartData.slice(cartData.indexOf(getById(id)),1);
+        cartData.splice(cartData.indexOf(getById(id)),1);
+        //console.log(cartData);
         saveData();
         return cartData;
     }
 
 // Изменение количества товара в коллекции
-    function changeCount(id, delta) {
+    /*function changeCount(id, delta) {
         var item;
         updateData();
         item = getById(id);
@@ -412,6 +519,17 @@ var cart=(function ($) {
             if (item.count < 1) {
                 remove(id);
             }
+            saveData();
+        }
+        return getById(id) || {};
+    }*/
+    function changeCount(id, newQuantity) {
+        var item;
+        updateData();
+        item = getById(id);
+        if(item) {
+            item.count = newQuantity;
+
             saveData();
         }
         return getById(id) || {};

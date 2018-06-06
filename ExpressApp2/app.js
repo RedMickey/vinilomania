@@ -13,6 +13,21 @@ var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var SessionStore = require('express-mysql-session')(session);
 
+//*****************************************************multer_module*************************************************
+/*var multer = require('multer');
+//var upload = multer({ dest: 'uploads/' });
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/tmp/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '.' + file.mimetype.split("/")[1])
+    }
+})
+
+var upload = multer({ storage: storage })*/
+//***************************************************************************************************************
 var DB_settings = require('./DB_con.json');
 var database = require('./models/mod_DB');
 
@@ -37,7 +52,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -152,6 +167,18 @@ app.use('/to/admin/panel', isAuthenticated, isAdmin, admin);
 app.use('/basket', basket);
 app.use('/api', api);
 
+/*app.post('/insert', upload.array('ImageCover',12), function (req, res) {
+    res.sendStatus(200);
+});*/
+
+/*app.post('/insert', upload.fields([{ name: 'ImageCover', maxCount: 1 }, { name: 'additionalImages', maxCount: 10 }]), function (req, res) {
+    res.sendStatus(200);
+});*/
+
+/*app.get('/kek', function (req, res) {
+    res.render('kek', { });
+});*/
+
 //******************************************************************проверка_ролей*********************************************************************************
 function isAdmin(req, res, next) {
     console.log("req.session.passport.user.userRoleID " + req.session.passport.user.userRoleID);
@@ -161,35 +188,6 @@ function isAdmin(req, res, next) {
     }
     
     res.redirect('/');
-}
-
-//******************************************************************проверка_авторизации_для_корзины**********************************************************************
-function addDataForCart(req, res, next) {
-    console.log("Данные для корзины добавлены");
-    if (req.isAuthenticated()) {
-        var db = new database();
-        db.query("SET @p0=?; CALL `calculSumAndCount`(@p0, @p1, @p2); SELECT @p1 AS `countGoods`, @p2 AS `sumPrice`;", [req.session.passport.user.userID])
-            .then(rows => {
-                //reqStr = rows[0];
-                console.log(rows[2][0].countGoods);
-                console.log(rows[2][0].sumPrice);
-                return db.close();
-            },
-            err => {
-                return db.close().then(() => { throw err; })
-            }
-            )
-            .then(() => {
-                return done(null, reqStr);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-
-        return next();
-    }
-    else
-        return next();
 }
 
 //*************************************ROUTES***LOGIN***LOGOUT***REGIST****************

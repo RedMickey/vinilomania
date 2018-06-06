@@ -27,11 +27,21 @@
             }
             )
             .then(() => {
+                var _user = null;
+                var _countGoods = null;
+                var _sumPrice = null;
+                if (req.session.passport) {
+                    _user = req.session.passport.user;
+                    _countGoods = req.countGoods;
+                    _sumPrice = req.sumPrice;
+                }
                 res.render('extends/curalb', {
                     alb_c: alb[0],
                     songs: al_songs,
                     identicals_c: identicals,
-                    user: (req.session.passport) ? req.session.passport.user : null
+                    user: _user,
+                    countGoods: _countGoods,
+                    sumPrice: _sumPrice
                 });
             })
             .catch(err => {

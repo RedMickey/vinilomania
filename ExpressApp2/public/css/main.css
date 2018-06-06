@@ -112,13 +112,17 @@
     font-size: 18px;
 }
 
-.b-tittle-3, .b-tittle, .b-tittle2, .b-tittle-4, .b-form-tit{
+.b-tittle-3, .b-tittle, .b-tittle2, .b-tittle-4, .b-form-tit, .cart-empty{
     font-family: 'trebuchet ms';
     background: #f2f2f2;
     z-index: 2;
 }
 
-.b-tittle-3, .b-tittle-4, .b-form-tit{
+.cart-empty{
+    font-size: 30px;
+}
+
+.b-tittle-3, .b-tittle-4, .b-form-tit, .cart-empty{
   font-weight: bold;
 }
 
@@ -293,6 +297,13 @@
   width: 450px;
 }
 
+.board-reviews{
+  background-color: #484fcf;
+  /*background-color: #5258d1;
+  background-color: #1191bf;*/
+  color: #000;
+}
+
 .goods-small-images{
   width: 450px;
 }
@@ -316,7 +327,7 @@
 
 }
 
-.good-small-image>a>img{
+.good-small-image>a>img, .good-small-image2{
   display: block;
   height: 50px;
   width: 50px;
@@ -334,11 +345,11 @@
     font-size: 14px;
 
 }
-.tab>a,.author-name > a{
+.tab>a,.author-name>a, .tab-table{
     color: #737373;
 }
 
-.tab>a{
+.tab>a, .tab-table{
     font-weight: 500;
     text-decoration: none;
 }
@@ -411,7 +422,7 @@ footer{
     margin-bottom: 7px;
 }
 
-.tab{
+.tab, .tab-table{
     display: inline-block;
     list-style: none;
     background-color: #dedede;
@@ -420,6 +431,10 @@ footer{
      padding-right: 3px;
      margin:0px 1px;
     } 
+
+.tab-table:first-letter{
+    text-transform: uppercase;
+}
 
 .tab-active{
     background-color: #ffc107 !important;   
