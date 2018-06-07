@@ -11,6 +11,8 @@ var mysql = require('mysql');
 var bodyParser = require("body-parser");
 // работа с файлами
 var fs = require('fs-extra');
+// работа с изображениями
+var sharp = require('sharp');
 
 var jsonParser = bodyParser.json();
 var router = express.Router();
@@ -41,6 +43,11 @@ var attachFS = function (req, res, next) {
     next();
 };
 
+var attachSharp = function (req, res, next) {
+    req.sharp = sharp;
+    next();
+};
+
 router.get('/', attachDB, function (req, res, next) {
     console.log(req.session.passport.user.username);
     admGoods.run(req, res, next);
@@ -54,11 +61,11 @@ router.get('/update/:id', attachDB, function (req, res, next) {
     updateGood.run(req, res, next);
 });
 
-router.post('/delete', attachDB, function (req, res) {
+router.post('/delete', attachDB, attachFS, function (req, res) {
     deleteAlb.run(req, res);
 });
 
-router.post('/insert', attachDB, attachFS, function (req, res) {
+router.post('/insert', attachDB, attachFS, attachSharp, function (req, res) {
     insertAlb.run(req,res);
 });
 
@@ -66,7 +73,7 @@ router.post('/uploadImages', upload.fields([{ name: 'ImageCover', maxCount: 1 },
     res.sendStatus(200);
 });
 
-router.post('/update/updateQuery', attachDB, function (req, res) {
+router.post('/update/updateQuery', attachDB, attachFS, attachSharp, function (req, res) {
     updateAlb.run(req, res);
 });
 

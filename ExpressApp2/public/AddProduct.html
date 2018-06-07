@@ -259,6 +259,7 @@
                     </div>
                     <div class="text-center">
                       <button type="button" class="btn btn-danger mt-2" id="deleteImageCover">Удалить <span class="oi oi-trash"></button>
+                      <button type="button" class="btn btn-danger mt-2" id="deleteIm">Удалить2 <span class="oi oi-trash"></button>
                     </div>
                   
                 </div>
@@ -522,6 +523,14 @@
           resolve();
         });
       }
+
+
+      $('#deleteIm').bind('click', function(e){
+        console.log($('#fileImageCover').val());
+        if ($('#fileImageCover').val()=="")
+          console.log("empty!");
+      });
+      
 
     </script>
 

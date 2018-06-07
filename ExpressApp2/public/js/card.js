@@ -78,7 +78,7 @@ var cart=(function ($) {
                 idnType[1]="2";
             var curDate=new Date();
             var curDateStr=curDate.getFullYear()+"-"+(renderTime(curDate.getMonth()+1))+"-"+renderTime(curDate.getDate())+" "+renderTime(curDate.getHours())+":"+renderTime(curDate.getMinutes())+":"+renderTime(curDate.getSeconds());
-            $.post('api/addOrder', {"id_album": idnType[0], "disc_type": idnType[1], "date_time": curDateStr},
+            $.post('/api/addOrder', {"id_album": idnType[0], "disc_type": idnType[1], "date_time": curDateStr},
                 function(data){
                     data=JSON.parse(data);
                     console.log(data);
@@ -107,7 +107,7 @@ var cart=(function ($) {
                 $(this).val(value);
             }
 
-            $.post('api/updateOrder', {"id_order": $this.attr(opts.attrId), "quantity_or": Number(value)},
+            $.post('/api/updateOrder', {"id_order": $this.attr(opts.attrId), "quantity_or": Number(value)},
                 function(data){
                     data=JSON.parse(data);
                     console.log(data);
@@ -125,7 +125,7 @@ var cart=(function ($) {
             e.preventDefault();
             var $this = $(this);
 
-            $.post('api/deleteOrder', {"id_order": $this.attr(opts.attrId)},
+            $.post('/api/deleteOrder', {"id_order": $this.attr(opts.attrId)},
                 function(data){
                     data=JSON.parse(data);
                     console.log(data);
@@ -383,7 +383,7 @@ var cart=(function ($) {
 // Получить данные о товаре(по 1 товару)
     function getAlbumById(order, idnType)
     {
-        $.post('api/getAlbumById', {'id': idnType[0]},
+        $.post('/api/getAlbumById', {'id': idnType[0]},
         function(data) {
             console.log("Ajax passed!");
             var typeName;
@@ -434,7 +434,7 @@ var cart=(function ($) {
 // Получить данные о товаре(все сразу)
     function getAlbumsByIds(idnType)
     {
-        $.post('api/getAlbumsByIds', {"id": JSON.stringify(idnType[0])},
+        $.post('/api/getAlbumsByIds', {"id": JSON.stringify(idnType[0])},
         function(data) {
             console.log("Ajax passed!");
 

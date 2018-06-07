@@ -8,7 +8,10 @@
             .then(row => {
                 alb = row;
                 if (alb.length > 0) {
-                    alb[0].addition_pics = alb[0].addition_pics.split(' ');
+                    if (alb[0].addition_pics)
+                        alb[0].addition_pics = alb[0].addition_pics.split(' ');
+                    else
+                        alb[0].addition_pics = [];
                 }
                 //return req.db.query('SELECT al.ID_album, al.album_cover, al.alb_name, al.alb_price1, al.alb_price2, al.count1, al.count2, au.author_name, s.style_name, al.ID_disktype1, al.ID_disktype2 FROM albums al inner join authors au on al.ID_author=au.ID_author inner join styles s on al.ID_style=s.ID_style where al.ID_genre=12')
                 return req.db.query('SELECT al.ID_album, au.ID_author, al.album_cover, al.alb_name, al.alb_price1, al.alb_price2, al.count1, al.count2, au.author_name, s.style_name, al.ID_disktype1, al.ID_disktype2 FROM albums al inner join authors au on al.ID_author=au.ID_author inner join styles s on al.ID_style=s.ID_style where al.ID_genre=? and al.ID_album<>?', [alb[0].ID_genre, alb[0].ID_album])

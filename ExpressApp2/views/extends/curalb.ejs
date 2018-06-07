@@ -37,9 +37,11 @@
                   </div>
 				  <%for(var i=0; i<alb_c.addition_pics.length;i++){%>
 					  <div class="good-small-image">
+					    <%if(alb_c.addition_pics[i]!=""){%>
 						<a href="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.addition_pics[i]%>">
 						  <img src="/albums-img/<%=alb_c.ID_author%>/<%=alb_c.ID_album%>/<%=alb_c.addition_pics[i].split('.').join('_s.')%>" alt="">
 						</a>
+						<%}%>
 					  </div>
 				  <%}%>
                 </div>
@@ -78,7 +80,7 @@
                   <%=alb_c.alb_price1%>руб
                 </div>
               </div>
-              <button type="button" class="btn btn-warning btn-lg add-to-cart" id="buyCurAlb" data-id="" data-name="<%=alb_c.alb_name%>" data-price="">Купить <span class="oi oi-basket"></span></button>
+              <button type="button" class="btn btn-warning btn-lg add-to-cart" id="buyCurAlb" data-id="<%=alb_c.ID_album%>_0" data-name="<%=alb_c.alb_name%>" data-price="<%=alb_c.alb_price1%>">Купить <span class="oi oi-basket"></span></button>
             </div>
             <div class="col-6 col-lg-3">
               <h5 class="h5-inf">Купить "<%=alb_c.author_name%> - <%=alb_c.alb_name%>" можно в следующих форматах:</h5>
@@ -96,7 +98,7 @@
               </div>
               <div class="alboms_art_link">
                 <a href="#">
-                  Все альбомы <span class="link_name">Stacey Kent</span> доступные в нашем магазине <span class="oi oi-arrow-right">
+                  Все альбомы <span class="link_name"><%=alb_c.author_name%></span> доступные в нашем магазине <span class="oi oi-arrow-right">
                 </a>
               </div>
             </div>

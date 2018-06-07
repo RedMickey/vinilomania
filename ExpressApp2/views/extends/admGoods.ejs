@@ -42,7 +42,7 @@
 			  <tbody>
 				<%for(var i=0; i<content.length;i++){%>
 				<tr>
-			      <th scope="row"><%=content[i].ID_album%></th>
+			      <th scope="row" author-id=<%=content[i].ID_author%>><%=content[i].ID_album%></th>
 			      <td><%=content[i].alb_name %></td>
 			      <td><%=content[i].author_name %></td>
 				  <td><%=content[i].genre_name %></td>
@@ -64,8 +64,8 @@
 		$(function(){
 			$("#del").click(function(e) {
 			alert('Удаление');
-			//alert($("tr[class=table-primary]>th").text());
-			 $.post('panel/delete', {'deletedID':$("tr[class=table-primary]>th").text()},
+
+			 $.post('panel/delete', {'deletedID':$("tr[class=table-primary]>th").text(), 'author_id': $("tr[class=table-primary]>th").attr('author-id')},
             function() {
 				   $("tr[class=table-primary]").remove();
                    alert('Запрос выполнен');
